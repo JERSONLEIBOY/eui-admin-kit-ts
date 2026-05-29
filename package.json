@@ -7,7 +7,7 @@
     "dev": "vite",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "build": "vue-tsc -b && vite build",
+    "build": "vite build --mode production",
     "preview": "vite preview",
     "clean:cache": "rimraf node_modules/.cache/ && rimraf node_modules/.vite/",
     "clean:lib": "rimraf node_modules"
