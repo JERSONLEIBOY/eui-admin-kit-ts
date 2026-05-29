@@ -8,7 +8,7 @@ import { EuiAdminResolver } from 'eui-admin-kit/es/utils/resolvers';
 
 export default defineConfig(({ command }) => {
   const isBuild = command === 'build';
-  const alias = {
+  const alias: Record<string, string> = {
     '@/': resolve('src') + '/',
     'vue-i18n': 'vue-i18n/dist/vue-i18n.cjs.js'
   };
