@@ -42,17 +42,17 @@
         <template #action="{ row }">
           <el-link
             type="primary"
-            :underline="false"
+            underline="never"
             @click="openEdit(null, row.organizationId)"
           >
             添加
           </el-link>
           <el-divider direction="vertical" />
-          <el-link type="primary" :underline="false" @click="openEdit(row)">
+          <el-link type="primary" underline="never" @click="openEdit(row)">
             修改
           </el-link>
           <el-divider direction="vertical" />
-          <el-link type="danger" :underline="false" @click="remove(row)">
+          <el-link type="danger" underline="never" @click="remove(row)">
             删除
           </el-link>
         </template>

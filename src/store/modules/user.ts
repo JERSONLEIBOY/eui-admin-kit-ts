@@ -61,7 +61,6 @@ export const useUserStore = defineStore('user', {
           })
       );
       this.setMenus(menus);
-      console.log(menus);
       return { menus, homePath };
     },
     /**
@@ -125,7 +124,7 @@ export const useUserStore = defineStore('user', {
  * @param data 菜单数据
  * @param childField 子级的字段名称
  */
-function formatMenus(data: Menu[], childField = 'children') {
+function formatMenus(data: Menu[], childField: keyof Menu = 'children') {
   let homePath: string | undefined;
   let homeTitle: string | undefined;
   const menus = mapTree<Menu, ProMenuItem>(
@@ -140,16 +139,17 @@ function formatMenus(data: Menu[], childField = 'children') {
         component: item.component,
         meta: { title: item.title, icon: item.icon, hide: !!item.hide, ...meta }
       };
-      const children = item[childField]
-        ? item[childField].filter((d: any) => !(d.meta?.hide ?? d.hide))
+      const children = item[childField] as Menu[] | undefined;
+      const filteredChildren = children
+        ? children.filter((d: any) => !(d.meta?.hide ?? d.hide))
         : void 0;
-      if (!children?.length) {
+      if (!filteredChildren?.length) {
         if (!homePath && menu.path && !isExternalLink(menu.path)) {
           homePath = menu.path;
           homeTitle = menu.meta?.title;
         }
       } else {
-        const childPath = children[0].path;
+        const childPath = filteredChildren[0].path;
         if (childPath) {
           if (!menu.redirect) {
             menu.redirect = childPath;

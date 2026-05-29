@@ -5,7 +5,7 @@
         <eui-text size="md">密保手机</eui-text>
         <eui-text type="placeholder">已绑定手机: {{ data.phone }}</eui-text>
       </div>
-      <el-link type="primary" :underline="false">去修改</el-link>
+      <el-link type="primary" underline="never">去修改</el-link>
     </div>
     <el-divider style="margin: 0; opacity: 0.6" />
     <div class="list-item">
@@ -15,7 +15,7 @@
           已绑定邮箱: eleadmin@eclouds.com
         </eui-text>
       </div>
-      <el-link type="primary" :underline="false">去修改</el-link>
+      <el-link type="primary" underline="never">去修改</el-link>
     </div>
     <el-divider style="margin: 0; opacity: 0.6" />
     <div class="list-item">
@@ -23,7 +23,7 @@
         <eui-text size="md">密保问题</eui-text>
         <eui-text type="placeholder">未设置密保问题</eui-text>
       </div>
-      <el-link type="primary" :underline="false">去设置</el-link>
+      <el-link type="primary" underline="never">去设置</el-link>
     </div>
     <el-divider style="margin: 0; opacity: 0.6" />
     <div class="list-item">
@@ -34,7 +34,7 @@
         <eui-text size="md">绑定QQ</eui-text>
         <eui-text type="placeholder">当前未绑定QQ账号</eui-text>
       </div>
-      <el-link type="primary" :underline="false">去绑定</el-link>
+      <el-link type="primary" underline="never">去绑定</el-link>
     </div>
     <el-divider style="margin: 0; opacity: 0.6" />
     <div class="list-item">
@@ -45,7 +45,7 @@
         <eui-text size="md">绑定微信</eui-text>
         <eui-text type="placeholder">当前未绑定绑定微信账号</eui-text>
       </div>
-      <el-link type="primary" :underline="false">去绑定</el-link>
+      <el-link type="primary" underline="never">去绑定</el-link>
     </div>
     <el-divider style="margin: 0; opacity: 0.6" />
     <div class="list-item">
@@ -56,7 +56,7 @@
         <eui-text size="md">绑定支付宝</eui-text>
         <eui-text type="placeholder">当前未绑定绑定支付宝账号</eui-text>
       </div>
-      <el-link type="primary" :underline="false">去绑定</el-link>
+      <el-link type="primary" underline="never">去绑定</el-link>
     </div>
   </div>
 </template>

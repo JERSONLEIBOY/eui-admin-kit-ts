@@ -27,7 +27,7 @@
       <span style="padding-right: 8px">只能上传 xls、xlsx 文件,</span>
       <el-link
         type="primary"
-        :underline="false"
+        underline="never"
         href=""
         download="用户导入模板.xlsx"
       >

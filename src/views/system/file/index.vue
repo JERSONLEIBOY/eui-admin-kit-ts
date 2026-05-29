@@ -43,7 +43,7 @@
             type="primary"
             :href="row.url"
             target="_blank"
-            :underline="false"
+            underline="never"
           >
             {{ row.path }}
           </el-link>
@@ -51,14 +51,14 @@
         <template #action="{ row }">
           <el-link
             type="primary"
-            :underline="false"
+            underline="never"
             :href="row.downloadUrl"
             target="_blank"
           >
             下载
           </el-link>
           <el-divider direction="vertical" />
-          <el-link type="danger" :underline="false" @click="remove(row)">
+          <el-link type="danger" underline="never" @click="remove(row)">
             删除
           </el-link>
         </template>

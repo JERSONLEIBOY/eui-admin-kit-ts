@@ -18,7 +18,7 @@
       class="project-table"
     >
       <template #projectName="{ row }">
-        <el-link type="primary" :underline="false">
+        <el-link type="primary" underline="never">
           {{ row.projectName }}
         </el-link>
       </template>

@@ -41,7 +41,7 @@
           </el-tag>
         </template>
         <template #action="{ row }">
-          <el-link type="primary" :underline="false" @click="openDetail(row)">
+          <el-link type="primary" underline="never" @click="openDetail(row)">
             详情
           </el-link>
         </template>

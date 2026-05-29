@@ -23,11 +23,11 @@
         <eui-text v-else-if="row.status === 1" type="info">已确认</eui-text>
       </template>
       <template #action="{ row }">
-        <el-link type="primary" :underline="false" @click="confirm(row)">
+        <el-link type="primary" underline="never" @click="confirm(row)">
           确认
         </el-link>
         <el-divider direction="vertical" />
-        <el-link type="danger" :underline="false" @click="remove(row)">
+        <el-link type="danger" underline="never" @click="remove(row)">
           删除
         </el-link>
       </template>

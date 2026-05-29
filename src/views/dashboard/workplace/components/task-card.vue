@@ -67,7 +67,7 @@
               </td>
               <td>
                 <eui-ellipsis style="line-height: 20px">
-                  <el-link type="primary" :underline="false">
+                  <el-link type="primary" underline="never">
                     {{ element.taskName }}
                   </el-link>
                 </eui-ellipsis>

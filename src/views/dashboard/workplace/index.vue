@@ -22,7 +22,7 @@
         <el-link
           type="primary"
           :icon="PlusCircleOutlined"
-          :underline="false"
+          underline="never"
           class="workplace-button"
           @click="add"
         >
@@ -32,7 +32,7 @@
         <el-link
           type="primary"
           :icon="UndoOutlined"
-          :underline="false"
+          underline="never"
           class="workplace-button"
           @click="reset"
         >

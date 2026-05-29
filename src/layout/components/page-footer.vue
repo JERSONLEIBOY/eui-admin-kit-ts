@@ -10,14 +10,14 @@
       style="--el-text-color-regular: var(--el-text-color-placeholder)"
     >
       <el-link
-        :underline="false"
+        underline="never"
         href="https://github.com/JERSONLEIBOY"
         target="_blank"
       >
         {{ t('layout.footer.website') }}
       </el-link>
       <el-link
-        :underline="false"
+        underline="never"
         href="https://github.com/JERSONLEIBOY/express-mongodb-backend-api"
         target="_blank"
       >

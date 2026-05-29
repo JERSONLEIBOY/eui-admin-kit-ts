@@ -39,7 +39,7 @@
       </el-button>
     </template>
     <template #nickname="{ row }">
-      <el-link type="primary" :underline="false" @click="openDetail(row)">
+      <el-link type="primary" underline="never" @click="openDetail(row)">
         {{ row.nickname }}
       </el-link>
     </template>
@@ -61,7 +61,7 @@
       />
     </template>
     <template #action="{ row }">
-      <el-link type="primary" :underline="false" @click="openEdit(row)">
+      <el-link type="primary" underline="never" @click="openEdit(row)">
         修改
       </el-link>
       <el-divider direction="vertical" />
@@ -73,7 +73,7 @@
         style="display: inline"
         @command="(key) => dropClick(key, row)"
       >
-        <el-link type="primary" :underline="false">
+        <el-link type="primary" underline="never">
           <span>更多</span>
           <el-icon :size="12" style="vertical-align: -1px; margin-left: 2px">
             <ArrowDown />
