@@ -63,7 +63,7 @@
       </el-tag>
     </div>
     <!-- 头像裁剪弹窗 -->
-    <eui-cropper-modal
+    <eui-cropper-model
       v-model="visible"
       :src="data.avatar"
       :options="{
