@@ -36,8 +36,8 @@ importers:
         specifier: ^2.14.0
         version: 2.14.0(vue@3.5.34(typescript@6.0.3))
       eui-admin-kit:
-        specifier: ^0.1.4
-        version: 0.1.4(element-plus@2.14.0(vue@3.5.34(typescript@6.0.3)))(vue@3.5.34(typescript@6.0.3))
+        specifier: ^0.1.5
+        version: 0.1.5(element-plus@2.14.0(vue@3.5.34(typescript@6.0.3)))(vue@3.5.34(typescript@6.0.3))
       exceljs:
         specifier: ^4.4.0
         version: 4.4.0
@@ -1142,8 +1142,8 @@ packages:
     resolution: {integrity: sha512-kVscqXk4OCp68SZ0dkgEKVi6/8ij300KBWTJq32P/dYeWTSwK41WyTxalN1eRmA5Z9UU/LX9D7FWSmV9SAYx6g==}
     engines: {node: '>=0.10.0'}
 
-  eui-admin-kit@0.1.4:
-    resolution: {integrity: sha512-bt/ILjNwalqW1ts9GVIIWhFY1qJdWm2NKxj/YLLODe1Z9C7JElZYkN1HxDWaUhaR0/yo6OESWWd9CP4jDMiKFA==}
+  eui-admin-kit@0.1.5:
+    resolution: {integrity: sha512-OCtu4idHHYA08U8gXZ1lQ+0IOu9NSNS7quVuaXpJNVBZr5uGwoDEhQ34Ff8Bv5kuqxlkIJqJHK3vEHH0IkP5Uw==}
     peerDependencies:
       element-plus: '>=2.7.0'
       vue: '>=3.1.0'
@@ -3117,7 +3117,7 @@ snapshots:
 
   esutils@2.0.3: {}
 
-  eui-admin-kit@0.1.4(element-plus@2.14.0(vue@3.5.34(typescript@6.0.3)))(vue@3.5.34(typescript@6.0.3)):
+  eui-admin-kit@0.1.5(element-plus@2.14.0(vue@3.5.34(typescript@6.0.3)))(vue@3.5.34(typescript@6.0.3)):
     dependencies:
       element-plus: 2.14.0(vue@3.5.34(typescript@6.0.3))
       vue: 3.5.34(typescript@6.0.3)
