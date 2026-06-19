@@ -63,15 +63,10 @@
       </el-tag>
     </div>
     <!-- 头像裁剪弹窗 -->
-    <eui-cropper-model
+    <eui-cropper-modal
       v-model="visible"
       :src="data.avatar"
-      :options="{
-        aspectRatio: 1,
-        autoCropArea: 1,
-        viewMode: 1,
-        dragMode: 'move'
-      }"
+      :aspect-ratio="1"
       :modal-props="{ destroyOnClose: true }"
       @done="onCrop"
     />

@@ -7,7 +7,6 @@ import DictData from '@/components/DictData/index.vue';
 import i18n from './i18n';
 import installer from './as-needed';
 
-import './styles/tailwind.css';
 import 'element-plus/theme-chalk/display.css';
 import 'eui-admin-kit/es/style/nprogress.scss';
 import './styles/themes/rounded.scss';

@@ -2,7 +2,6 @@ import request from '@/utils/request';
 import type { ApiResult, PageResult } from '@/api';
 import type {
   NoticeResult,
-  Message,
   UserItem,
   UserScore,
   Piece,

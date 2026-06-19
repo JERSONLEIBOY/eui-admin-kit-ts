@@ -46,7 +46,35 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   (res: AxiosResponse<ApiResult<unknown>>) => {
     // 登录过期处理
-    if (res.data?.code === 401) {
+    // if (res.data?.code === 401) {
+    //   const { path, fullPath } = unref(router.currentRoute);
+    //   if (path == LAYOUT_PATH) {
+    //     logout(true, void 0, router.push);
+    //   } else if (path !== '/login') {
+    //     ElMessageBox.close();
+    //     ElMessageBox.alert('登录状态已过期, 请退出重新登录!', '系统提示', {
+    //       confirmButtonText: '重新登录',
+    //       callback: (action: Action) => {
+    //         if (action === 'confirm') {
+    //           logout(false, fullPath);
+    //         }
+    //       },
+    //       type: 'warning',
+    //       draggable: true
+    //     });
+    //   }
+    //   return Promise.reject(new Error(res.data.message));
+    // }
+    // 续期token
+    const newToken = res.headers['authorization'];
+    if (newToken) {
+      setToken(newToken);
+    }
+    return res;
+  },
+  (error) => {
+    const { response } = error;
+    if (response?.status === 401) {
       const { path, fullPath } = unref(router.currentRoute);
       if (path == LAYOUT_PATH) {
         logout(true, void 0, router.push);
@@ -63,17 +91,8 @@ service.interceptors.response.use(
           draggable: true
         });
       }
-      return Promise.reject(new Error(res.data.message));
+      return Promise.reject(new Error(response?.data?.message || '网络错误'));
     }
-    // 续期token
-    const newToken = res.headers['authorization'];
-    if (newToken) {
-      setToken(newToken);
-    }
-    return res;
-  },
-  (error) => {
-    const { response } = error;
     return Promise.reject(new Error(response?.data?.message || '网络错误'));
   }
 );

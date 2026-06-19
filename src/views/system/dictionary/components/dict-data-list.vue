@@ -1,9 +1,4 @@
 <template>
-  <dict-data-search
-    ref="searchRef"
-    style="margin-bottom: -14px"
-    @search="reload"
-  />
   <eui-pro-table
     ref="tableRef"
     row-key="dictDataId"
@@ -63,7 +58,6 @@
     Columns
   } from 'eui-admin-kit/es/ProTable/types';
   import { PlusOutlined, DeleteOutlined } from '@/components/icons';
-  import DictDataSearch from './dict-data-search.vue';
   import DictDataEdit from './dict-data-edit.vue';
   import {
     pageDictionaryData,
@@ -80,8 +74,9 @@
     dictId: string;
   }>();
 
-  /** 搜索栏实例 */
-  const searchRef = ref<InstanceType<typeof DictDataSearch> | null>(null);
+  const emit = defineEmits<{
+    (e: 'reset-search'): void;
+  }>();
 
   /** 表格实例 */
   const tableRef = ref<InstanceType<typeof EuiProTable> | null>(null);
@@ -198,7 +193,7 @@
   watch(
     () => props.dictId,
     () => {
-      searchRef.value?.resetFields?.();
+      emit('reset-search');
       reload({});
     }
   );
@@ -211,4 +206,6 @@
       dictId: props.dictId
     });
   };
+
+  defineExpose({ reload });
 </script>

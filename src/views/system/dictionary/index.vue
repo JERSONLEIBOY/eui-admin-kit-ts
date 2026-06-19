@@ -1,24 +1,20 @@
 <template>
-  <eui-page
-    flex-table
-    :multi-card="false"
-    hide-footer
-    style="min-height: 420px"
-  >
-    <eui-card
-      flex-table
-      :body-style="{ padding: '0 0 0 16px', overflow: 'hidden' }"
-    >
+  <eui-page flexTable="auto" :multi-card="false" hide-footer>
+    <eui-card flexTable="auto" :body-style="{ padding: '0px' }">
       <eui-split-panel
         ref="splitRef"
-        flex-table
+        flex-table="auto"
+        :space="0"
         size="256px"
+        :min-size="120"
+        :max-size="0.82"
         allow-collapse
-        :custom-style="{ borderWidth: '0 1px 0 0', padding: '16px 0' }"
-        :body-style="{ padding: '16px 16px 0 0', overflow: 'hidden' }"
-        :style="{ height: '100%', overflow: 'visible' }"
+        percentage
+        resizable
+        :collapse-btn-offset="2"
+        :custom-style="{ borderWidth: '0 1px 0 0' }"
       >
-        <div style="padding: 0 16px 12px 0">
+        <template #sideHeader>
           <el-input
             clearable
             :maxlength="20"
@@ -26,8 +22,8 @@
             placeholder="输入字典名称搜索"
             :prefix-icon="SearchOutlined"
           />
-        </div>
-        <div style="margin-bottom: 12px">
+        </template>
+        <div style="padding: 12px 0px 0px 12px">
           <el-button
             type="primary"
             class="eui-btn-icon"
@@ -57,7 +53,7 @@
         </div>
         <eui-loading
           :loading="loading"
-          :style="{ flex: 1, paddingRight: '16px', overflow: 'auto' }"
+          :style="{ flex: '1 1 60px', overflow: 'auto' }"
         >
           <el-tree
             ref="treeRef"
@@ -91,10 +87,19 @@
             </template>
           </el-tree>
         </eui-loading>
+        <template #bodyHeader>
+          <dict-data-search
+            ref="searchRef"
+            v-if="current && current.dictId"
+            @search="onSearch"
+          />
+        </template>
         <template #body>
           <dict-data-list
+            ref="dictDataListRef"
             v-if="current && current.dictId"
             :dict-id="current.dictId"
+            @reset-search="onResetSearch"
           />
         </template>
       </eui-split-panel>
@@ -118,9 +123,11 @@
   } from '@/components/icons';
   import { useMobile } from '@/utils/use-mobile';
   import DictDataList from './components/dict-data-list.vue';
+  import DictDataSearch from './components/dict-data-search.vue';
   import DictEdit from './components/dict-edit.vue';
   import { listDictionaries, removeDictionary } from '@/api/system/dictionary';
   import type { Dictionary } from '@/api/system/dictionary/model';
+  import type { DictionaryDataParam } from '@/api/system/dictionary-data/model';
 
   defineOptions({
     name: 'SystemDictionary'
@@ -131,6 +138,12 @@
 
   /** 分割面板组件 */
   const splitRef = ref<InstanceType<typeof EuiSplitPanel> | null>(null);
+
+  /** 搜索栏实例 */
+  const searchRef = ref<InstanceType<typeof DictDataSearch> | null>(null);
+
+  /** 字典数据列表实例 */
+  const dictDataListRef = ref<InstanceType<typeof DictDataList> | null>(null);
 
   /** 树组件 */
   const treeRef = ref<InstanceType<typeof ElTree> | null>(null);
@@ -182,6 +195,16 @@
     } else {
       current.value = null;
     }
+  };
+
+  /** 搜索 */
+  const onSearch = (where?: DictionaryDataParam) => {
+    dictDataListRef.value?.reload?.(where);
+  };
+
+  /** 字典切换时重置搜索条件 */
+  const onResetSearch = () => {
+    searchRef.value?.resetFields?.();
   };
 
   /** 打开编辑弹窗 */

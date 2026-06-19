@@ -1,5 +1,4 @@
 <template>
-  <user-search ref="searchRef" style="margin-bottom: -14px" @search="reload" />
   <eui-pro-table
     ref="tableRef"
     row-key="userId"
@@ -108,7 +107,6 @@
     UploadOutlined
   } from '@/components/icons';
   import { usePageTab } from '@/utils/use-page-tab';
-  import UserSearch from './user-search.vue';
   import UserEdit from './user-edit.vue';
   import UserImport from './user-import.vue';
   import {
@@ -125,11 +123,12 @@
     organizationId: string;
   }>();
 
+  const emit = defineEmits<{
+    (e: 'reset-search'): void;
+  }>();
+
   const { push } = useRouter();
   const { addPageTab } = usePageTab();
-
-  /** 搜索栏实例 */
-  const searchRef = ref<InstanceType<typeof UserSearch> | null>(null);
 
   /** 表格实例 */
   const tableRef = ref<InstanceType<typeof EuiProTable> | null>(null);
@@ -319,11 +318,11 @@
     }
   };
 
-  // 监听机构 id 变化
+  /** 监听机构 id 变化 */
   watch(
     () => props.organizationId,
     () => {
-      searchRef.value?.resetFields?.();
+      emit('reset-search');
       reload({});
     }
   );
@@ -349,4 +348,6 @@
     });
     push(path);
   };
+
+  defineExpose({ reload });
 </script>

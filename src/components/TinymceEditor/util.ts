@@ -1,7 +1,7 @@
 import type {
   Editor as TinyMCEEditor,
   EditorEvent,
-  RawEditorSettings
+  RawEditorOptions
 } from 'tinymce';
 const BASE_URL = import.meta.env.BASE_URL;
 
@@ -81,7 +81,7 @@ const TOOLBAR: string = [
 ].join(' ');
 
 /** 默认配置 */
-export const DEFAULT_CONFIG: RawEditorSettings = {
+export const DEFAULT_CONFIG: RawEditorOptions = {
   height: 300,
   branding: false,
   skin_url: BASE_URL + 'tinymce/skins/ui/oxide',
@@ -94,19 +94,20 @@ export const DEFAULT_CONFIG: RawEditorSettings = {
   toolbar_mode: 'sliding',
   quickbars_insert_toolbar: '',
   convert_urls: false,
-  images_upload_handler: (blobInfo: any, success: any, error: any) => {
-    if (blobInfo.blob().size / 1024 > 400) {
-      error('大小不能超过 400KB');
-      return;
-    }
-    success('data:image/jpeg;base64,' + blobInfo.base64());
-  },
+  images_upload_handler: (blobInfo) =>
+    new Promise<string>((resolve, reject) => {
+      if (blobInfo.blob().size / 1024 > 400) {
+        reject('大小不能超过 400KB');
+        return;
+      }
+      resolve('data:image/jpeg;base64,' + blobInfo.base64());
+    }),
   file_picker_types: 'media image file',
   file_picker_callback: () => {}
 };
 
 /** 暗黑主题配置 */
-export const DARK_CONFIG: RawEditorSettings = {
+export const DARK_CONFIG: RawEditorOptions = {
   skin_url: BASE_URL + 'tinymce/skins/ui/oxide-dark',
   content_css: BASE_URL + 'tinymce/skins/content/dark/content.min.css'
 };

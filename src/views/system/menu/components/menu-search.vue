@@ -1,6 +1,6 @@
 <!-- 搜索表单 -->
 <template>
-  <eui-card :body-style="{ paddingBottom: '2px' }">
+  <eui-card searchForm>
     <el-form label-width="72px" @keyup.enter="search" @submit.prevent="">
       <el-row :gutter="8">
         <el-col :lg="6" :md="12" :sm="12" :xs="24">

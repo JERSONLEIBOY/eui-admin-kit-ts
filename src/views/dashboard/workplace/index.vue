@@ -158,7 +158,7 @@
     const str = localStorage.getItem(CACHE_KEY);
     try {
       return str ? JSON.parse(str) : null;
-    } catch (e) {
+    } catch (_e) {
       return null;
     }
   };

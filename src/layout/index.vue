@@ -199,6 +199,13 @@
   import I18nIcon from './components/i18n-icon.vue';
   import PageFooter from './components/page-footer.vue';
   import SettingDrawer from './components/setting-drawer.vue';
+  import * as MenuIcons from './menu-icons';
+  import * as ElementPlusIconsVue from '@element-plus/icons-vue';
+
+  defineOptions({
+    name: 'Layout',
+    components: { ...MenuIcons, ...ElementPlusIconsVue }
+  });
 
   const { push } = useRouter();
   const { t, locale } = useI18n();
@@ -390,14 +397,5 @@
   /** 打开主题设置抽屉 */
   const openSetting = () => {
     settingVisible.value = true;
-  };
-</script>
-
-<script lang="ts">
-  import * as MenuIcons from './menu-icons';
-
-  export default {
-    name: 'Layout',
-    components: MenuIcons
   };
 </script>

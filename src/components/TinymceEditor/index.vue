@@ -18,7 +18,7 @@
   import type {
     Editor as TinyMCEEditor,
     EditorEvent,
-    RawEditorSettings
+    RawEditorOptions
   } from 'tinymce';
   import 'tinymce/themes/silver';
   import 'tinymce/icons/default';
@@ -67,7 +67,7 @@
       /** v-model */
       modelValue?: string;
       /** 编辑器配置 */
-      init?: RawEditorSettings;
+      init?: RawEditorOptions;
       /** 是否内联模式 */
       inline?: boolean;
       /** model events */
@@ -181,11 +181,7 @@
     () => props.disabled,
     (disable) => {
       if (editorIns !== null) {
-        if (typeof editorIns.mode?.set === 'function') {
-          editorIns.mode.set(disable ? 'readonly' : 'design');
-        } else {
-          editorIns.setMode(disable ? 'readonly' : 'design');
-        }
+        editorIns.mode.set(disable ? 'readonly' : 'design');
       }
     }
   );

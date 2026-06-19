@@ -675,28 +675,30 @@
     html.classList.add('disabled-transition');
     trigger.classList.add('view-transition-trigger');
     // @ts-ignore
-    document.startViewTransition(() => themeStore.setDarkMode(isDark)).ready.then(() => {
-      const clipPath = [
-        `circle(0px at ${x}px ${y}px)`,
-        `circle(${endRadius}px at ${x}px ${y}px)`
-      ];
-      const cleanup = () => {
-        trigger.classList.remove('view-transition-trigger');
-        html.classList.remove('disabled-transition');
-      };
-      const anim = html.animate(
-        { clipPath: isDark ? clipPath : [...clipPath].reverse() },
-        {
-          duration: 400,
-          easing: 'ease-in',
-          fill: 'forwards',
-          pseudoElement: isDark
-            ? '::view-transition-new(root)'
-            : '::view-transition-old(root)'
-        }
-      );
-      anim.onfinish = cleanup;
-    });
+    document
+      .startViewTransition(() => themeStore.setDarkMode(isDark))
+      .ready.then(() => {
+        const clipPath = [
+          `circle(0px at ${x}px ${y}px)`,
+          `circle(${endRadius}px at ${x}px ${y}px)`
+        ];
+        const cleanup = () => {
+          trigger.classList.remove('view-transition-trigger');
+          html.classList.remove('disabled-transition');
+        };
+        const anim = html.animate(
+          { clipPath: isDark ? clipPath : [...clipPath].reverse() },
+          {
+            duration: 400,
+            easing: 'ease-in',
+            fill: 'forwards',
+            pseudoElement: isDark
+              ? '::view-transition-new(root)'
+              : '::view-transition-old(root)'
+          }
+        );
+        anim.onfinish = cleanup;
+      });
   };
 
   const updateColor = async (value?: string | null) => {

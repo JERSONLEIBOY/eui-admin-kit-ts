@@ -7,10 +7,10 @@
     :model-value="modelValue"
     :placeholder="placeholder"
     :disabled="disabled"
-    :popper-width="420"
-    :popper-height="294"
+    :popper-width="460"
+    :popper-height="388"
     :grid-style="{ gridTemplateColumns: 'repeat(6, 1fr)' }"
-    :item-style="{ height: '52px' }"
+    :item-style="{ height: '48px' }"
     :popper-options="{ strategy: 'fixed' }"
     @update:modelValue="updateValue"
   >
@@ -23,6 +23,17 @@
 </template>
 
 <script lang="ts" setup>
+  import { ref } from 'vue';
+  import * as MenuIcons from '@/layout/menu-icons';
+  import * as ElementPlusIconsVue from '@element-plus/icons-vue';
+  import { getAllCategories } from '@/utils/iconRegistry';
+
+  const elementPlusCategories = getAllCategories();
+  defineOptions({
+    name: 'IconSelect',
+    components: { ...MenuIcons, ...ElementPlusIconsVue }
+  });
+
   const emit = defineEmits<{
     (e: 'update:modelValue', value: string): void;
   }>();
@@ -41,31 +52,33 @@
     }
   );
 
+  const iconNames = Object.keys(MenuIcons);
+
+  const iconData = ref([
+    {
+      title: 'EuiAdminKit',
+      children: [
+        {
+          title: '线框风格',
+          icons: iconNames.filter((name) => !name.endsWith('Filled'))
+        },
+        {
+          title: '实底风格',
+          icons: iconNames.filter((name) => name.endsWith('Filled'))
+        }
+      ]
+    },
+    {
+      title: 'ElementPlus',
+      children: elementPlusCategories.map((category) => ({
+        title: category.name,
+        icons: category.icons
+      }))
+    }
+  ]);
+
   /** 更新选中数据 */
   const updateValue = (value: string) => {
     emit('update:modelValue', value);
-  };
-</script>
-
-<script lang="ts">
-  import * as MenuIcons from '@/layout/menu-icons';
-
-  export default {
-    components: MenuIcons,
-    data() {
-      const iconNames = Object.keys(MenuIcons);
-      return {
-        iconData: [
-          {
-            title: '线框风格',
-            icons: iconNames.filter((name) => !name.endsWith('Filled'))
-          },
-          {
-            title: '实底风格',
-            icons: iconNames.filter((name) => name.endsWith('Filled'))
-          }
-        ]
-      };
-    }
   };
 </script>

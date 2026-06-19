@@ -1,7 +1,7 @@
 <template>
-  <eui-page>
+  <eui-page flexTable="auto" hideFooter>
     <menu-search @search="reload" />
-    <eui-card :body-style="{ paddingTop: '8px' }">
+    <eui-card flexTable="auto">
       <eui-pro-table
         sticky
         ref="tableRef"
@@ -114,6 +114,8 @@
   import { ref } from 'vue';
   import { ElMessageBox } from 'element-plus/es';
   import { EuiMessage, isExternalLink, toTree } from 'eui-admin-kit/es';
+  import * as MenuIcons from '@/layout/menu-icons';
+  import * as ElementPlusIconsVue from '@element-plus/icons-vue';
   import type { EuiProTable } from 'eui-admin-kit';
   import type {
     DatasourceFunction,
@@ -128,6 +130,11 @@
   import MenuEdit from './components/menu-edit.vue';
   import { listMenus, removeMenu } from '@/api/system/menu';
   import type { Menu, MenuParam } from '@/api/system/menu/model';
+
+  defineOptions({
+    name: 'SystemMenu',
+    components: { ...MenuIcons, ...ElementPlusIconsVue }
+  });
 
   /** 表格实例 */
   const tableRef = ref<InstanceType<typeof EuiProTable> | null>(null);
@@ -258,14 +265,5 @@
   /** 折叠全部 */
   const foldAll = () => {
     tableRef.value?.toggleRowExpansionAll?.(false);
-  };
-</script>
-
-<script lang="ts">
-  import * as MenuIcons from '@/layout/menu-icons';
-
-  export default {
-    name: 'SystemMenu',
-    components: MenuIcons
   };
 </script>

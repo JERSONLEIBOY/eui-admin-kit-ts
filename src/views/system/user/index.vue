@@ -6,18 +6,24 @@
     style="min-height: 420px"
   >
     <eui-card
-      flex-table
-      :body-style="{ padding: '0 0 0 16px', overflow: 'hidden' }"
+      bordered
+      flex-table="auto"
+      :body-style="{ padding: '0px' }"
+      style="overflow: hidden"
     >
       <eui-split-panel
-        flex-table
-        size="256px"
+        flex-table="auto"
+        :space="0"
+        :size="258"
+        :min-size="120"
+        :max-size="0.82"
+        percentage
+        resizable
         allow-collapse
-        :custom-style="{ borderWidth: '0 1px 0 0', padding: '16px 0' }"
-        :body-style="{ padding: '16px 16px 0 0', overflow: 'hidden' }"
-        :style="{ height: '100%', overflow: 'visible' }"
+        :collapse-btn-offset="2"
+        :custom-style="{ borderWidth: '0 1px 0 0' }"
       >
-        <div style="padding: 0 16px 12px 0">
+        <template #sideHeader>
           <el-input
             clearable
             :maxlength="20"
@@ -25,10 +31,10 @@
             placeholder="输入机构名称搜索"
             :prefix-icon="SearchOutlined"
           />
-        </div>
+        </template>
         <eui-loading
           :loading="loading"
-          :style="{ flex: 1, paddingRight: '16px', overflow: 'auto' }"
+          :style="{ flex: '1 1 60px', overflow: 'auto' }"
         >
           <el-tree
             ref="treeRef"
@@ -52,10 +58,19 @@
             </template>
           </el-tree>
         </eui-loading>
+        <template #bodyHeader>
+          <user-search
+            ref="searchRef"
+            v-if="current && current.organizationId"
+            @search="onSearch"
+          />
+        </template>
         <template #body>
           <user-list
+            ref="userListRef"
             v-if="current && current.organizationId"
             :organization-id="current.organizationId"
+            @reset-search="onResetSearch"
           />
         </template>
       </eui-split-panel>
@@ -70,9 +85,11 @@
   import type { EuiSplitPanel } from 'eui-admin-kit/es';
   import { SearchOutlined, CityOutlined } from '@/components/icons';
   import { useMobile } from '@/utils/use-mobile';
+  import UserSearch from './components/user-search.vue';
   import UserList from './components/user-list.vue';
   import { listOrganizations } from '@/api/system/organization';
   import type { Organization } from '@/api/system/organization/model';
+  import type { UserParam } from '@/api/system/user/model';
 
   defineOptions({
     name: 'SystemUser'
@@ -83,6 +100,12 @@
 
   /** 分割面板组件 */
   const splitRef = ref<InstanceType<typeof EuiSplitPanel> | null>(null);
+
+  /** 搜索栏实例 */
+  const searchRef = ref<InstanceType<typeof UserSearch> | null>(null);
+
+  /** 用户列表实例 */
+  const userListRef = ref<InstanceType<typeof UserList> | null>(null);
 
   /** 树组件 */
   const treeRef = ref<InstanceType<typeof ElTree> | null>(null);
@@ -132,6 +155,16 @@
     } else {
       current.value = null;
     }
+  };
+
+  /** 搜索 */
+  const onSearch = (where?: UserParam) => {
+    userListRef.value?.reload?.(where);
+  };
+
+  /** 机构切换时重置搜索条件 */
+  const onResetSearch = () => {
+    searchRef.value?.resetFields?.();
   };
 
   /** 树过滤方法 */

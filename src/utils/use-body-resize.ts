@@ -6,7 +6,7 @@ import { useThemeStore } from '@/store/modules/theme';
  * 主体区尺寸改变hook
  * @param hook 改变回调
  */
-export function useBodyResize(hook: Function) {
+export function useBodyResize(hook: () => void) {
   if (!hook) {
     return;
   }

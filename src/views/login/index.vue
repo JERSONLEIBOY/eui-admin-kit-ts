@@ -389,5 +389,10 @@
 <style lang="scss">
   html.dark .login-wrapper {
     background: #000;
+    .login-captcha-group {
+      .login-captcha {
+        background: #000;
+      }
+    }
   }
 </style>
