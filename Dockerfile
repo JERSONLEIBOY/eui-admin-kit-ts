@@ -7,8 +7,9 @@ COPY package*.json ./
 
 # 使用 npm ci 替代 npm install，更快且更可靠
 # 使用构建缓存挂载加速依赖安装
+# 使用淘宝镜像源加速国内下载
 RUN --mount=type=cache,target=/root/.npm \
-    npm ci --prefer-offline --no-audit
+    npm ci --registry=https://registry.npmmirror.com --prefer-offline --no-audit
 
 # 复制源码
 COPY . .
