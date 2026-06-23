@@ -7,6 +7,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Deploy to server
         uses: appleboy/ssh-action@v1.0.3
@@ -15,9 +16,27 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           port: ${{ secrets.SERVER_PORT || 22 }}
+          command_timeout: 15m
           script: |
+            set -e
             cd ~/eui-admin-kit
+
+            echo "========== Git Pull =========="
             git pull origin main
-            DOCKER_BUILDKIT=1 docker build -t eui-admin-kit:latest .
-            docker-compose up -d --force-recreate
+
+            echo "========== Docker Info =========="
+            docker --version
+
+            echo "========== Start Build ($(date '+%H:%M:%S')) =========="
+            DOCKER_BUILDKIT=1 docker build --progress=plain -t eui-admin-kit:latest .
+            echo "========== Build Complete ($(date '+%H:%M:%S')) =========="
+
+            echo "========== Restart Container =========="
+            docker-compose down
+            docker-compose up -d
+
+            echo "========== Cleanup =========="
             docker image prune -f
+
+            echo "========== Status =========="
+            docker-compose ps
