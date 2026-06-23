@@ -1,4 +1,5 @@
-FROM node:22-alpine AS builder
+# 使用腾讯云镜像加速
+FROM ccr.ccs.tencentyun.com/library/node:22-alpine AS builder
 WORKDIR /app
 
 # 复制依赖文件
@@ -15,8 +16,8 @@ COPY . .
 # 构建项目
 RUN npm run build
 
-# 生产镜像
-FROM nginx:alpine
+# 生产镜像 - 使用腾讯云镜像加速
+FROM ccr.ccs.tencentyun.com/library/nginx:alpine
 
 # 复制构建产物
 COPY --from=builder /app/dist /usr/share/nginx/html
