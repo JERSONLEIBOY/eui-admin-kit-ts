@@ -18,6 +18,6 @@ jobs:
           script: |
             cd ~/eui-admin-kit
             git pull origin main
-            docker build -t eui-admin-kit:latest .
+            DOCKER_BUILDKIT=1 docker build -t eui-admin-kit:latest .
             docker-compose up -d --force-recreate
             docker image prune -f
