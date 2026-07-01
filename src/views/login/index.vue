@@ -1,91 +1,106 @@
 <template>
   <div class="login-wrapper">
-    <eui-card shadow="always" class="login-card">
-      <div class="login-cover">
+    <div class="login-header">
+      <div class="login-logo">
+        <img src="@/assets/logo.png" alt="" />
         <h1 class="login-title">Eui Admin Kit</h1>
-        <h4 class="login-subtitle">一款兼具设计美学与高效开发的后台系统</h4>
       </div>
-      <div class="login-body">
-        <eui-text type="heading" style="font-size: 24px; margin-bottom: 18px">
-          {{ t('login.title') }}
-        </eui-text>
-        <eui-segmented
-          v-model="tabActive"
-          :items="[
-            { label: t('login.passwordType'), value: 1 }
-            // { label: t('login.qrcodeType'), value: 2 }
-          ]"
-          style="margin-bottom: 18px"
-          @change="onTabChange"
-        />
-        <el-form
-          v-if="tabActive == 1"
-          ref="formRef"
-          size="large"
-          :model="form"
-          :rules="rules"
-          @keyup.enter="submit"
-          @submit.prevent=""
-        >
-          <el-form-item prop="username">
-            <el-input
-              clearable
-              v-model="form.username"
-              :placeholder="t('login.username')"
-            />
-          </el-form-item>
-          <el-form-item prop="password">
-            <el-input
-              show-password
-              v-model="form.password"
-              :placeholder="t('login.password')"
-            />
-          </el-form-item>
-          <el-form-item prop="code">
-            <div class="login-captcha-group">
+    </div>
+    <div class="login-main">
+      <eui-card shadow="always" class="login-card">
+        <div class="login-cover">
+          <h1 class="login-title">Eui Admin Kit</h1>
+          <h4 class="login-subtitle">一款兼具设计美学与高效开发的后台系统</h4>
+        </div>
+        <div class="login-body">
+          <eui-text type="heading" style="font-size: 24px; margin-bottom: 18px">
+            {{ t('login.title') }}
+          </eui-text>
+          <eui-segmented
+            v-model="tabActive"
+            :items="[
+              { label: t('login.passwordType'), value: 1 }
+              // { label: t('login.qrcodeType'), value: 2 }
+            ]"
+            style="margin-bottom: 18px"
+            @change="onTabChange"
+          />
+          <el-form
+            v-if="tabActive == 1"
+            ref="formRef"
+            size="large"
+            :model="form"
+            :rules="rules"
+            @keyup.enter="submit"
+            @submit.prevent=""
+          >
+            <el-form-item prop="username">
               <el-input
                 clearable
-                v-model="form.captchaCode"
-                :placeholder="t('login.code')"
+                v-model="form.username"
+                :placeholder="t('login.username')"
               />
-              <div class="login-captcha" @click="changeCaptcha">
-                <img v-if="captcha" :src="captcha" />
+            </el-form-item>
+            <el-form-item prop="password">
+              <el-input
+                show-password
+                v-model="form.password"
+                :placeholder="t('login.password')"
+              />
+            </el-form-item>
+            <el-form-item prop="code">
+              <div class="login-captcha-group">
+                <el-input
+                  clearable
+                  v-model="form.captchaCode"
+                  :placeholder="t('login.code')"
+                />
+                <div class="login-captcha" @click="changeCaptcha">
+                  <img v-if="captcha" :src="captcha" />
+                </div>
               </div>
-            </div>
-          </el-form-item>
-          <el-form-item>
-            <el-checkbox v-model="form.remember">
-              {{ t('login.remember') }}
-            </el-checkbox>
-          </el-form-item>
-          <el-form-item>
-            <el-button
-              size="large"
-              type="primary"
-              :loading="loading"
-              style="width: 100%"
-              @click="submit"
+            </el-form-item>
+            <el-form-item>
+              <el-checkbox v-model="form.remember">
+                {{ t('login.remember') }}
+              </el-checkbox>
+            </el-form-item>
+            <el-form-item>
+              <el-button
+                size="large"
+                type="primary"
+                :loading="loading"
+                style="width: 100%"
+                @click="submit"
+              >
+                {{ t('login.login') }}
+              </el-button>
+            </el-form-item>
+          </el-form>
+          <div v-else class="login-qrcode-group">
+            <eui-qr-code-svg
+              :size="180"
+              :margin="2"
+              :value="qrcode"
+              class="login-qrcode"
+            />
+            <div
+              style="margin-top: 16px; cursor: pointer"
+              @click="refreshQrCode"
             >
-              {{ t('login.login') }}
-            </el-button>
-          </el-form-item>
-        </el-form>
-        <div v-else class="login-qrcode-group">
-          <eui-qr-code-svg
-            :size="180"
-            :margin="2"
-            :value="qrcode"
-            class="login-qrcode"
-          />
-          <div style="margin-top: 16px; cursor: pointer" @click="refreshQrCode">
-            <el-icon :size="15" style="vertical-align: -2px; margin-right: 6px">
-              <ReloadOutlined />
-            </el-icon>
-            <span>{{ t('login.refreshQrcode') }}</span>
+              <el-icon
+                :size="15"
+                style="vertical-align: -2px; margin-right: 6px"
+              >
+                <ReloadOutlined />
+              </el-icon>
+              <span>{{ t('login.refreshQrcode') }}</span>
+            </div>
           </div>
         </div>
-      </div>
-    </eui-card>
+      </eui-card>
+    </div>
+    <pageFooter :record="true" />
   </div>
 </template>
 
@@ -100,6 +115,7 @@
     // ProtectOutlined,
     ReloadOutlined
   } from '@/components/icons';
+  import pageFooter from '@/layout/components/page-footer.vue';
   import { getToken } from '@/utils/token-util';
   import { usePageTab } from '@/utils/use-page-tab';
   import { login, getCaptcha } from '@/api/login';
@@ -228,14 +244,42 @@
   .login-wrapper {
     min-height: 100vh;
     box-sizing: border-box;
-    padding: 20px;
     display: flex;
+    padding: 0 20px;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     background-image: url('@/assets/img/login/login-bg.png');
     background-repeat: no-repeat;
     background-size: 100% 100%;
+
+    .login-header {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding: 8px 0 0 0;
+      .login-logo {
+        display: flex;
+        align-items: center;
+        & > img {
+          width: 40px;
+          height: 40px;
+        }
+        .login-title {
+          margin: 0 0 0 6px;
+          color: #000;
+          font-weight: 500;
+          font-size: 20px;
+        }
+      }
+    }
+
+    .login-main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
     .login-card {
       width: 920px;

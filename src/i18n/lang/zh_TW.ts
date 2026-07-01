@@ -11,7 +11,8 @@ export const zh_TW: Locale = {
     footer: {
       website: '項目地址',
       document: '項目文件',
-      copyright: 'Copyright © 2026 EUI Admin Kit'
+      copyright: 'Copyright © 2026 EUI Admin Kit',
+      record: '备案號：闽ICP备2026023953号-1'
     },
     logout: {
       title: '詢問',

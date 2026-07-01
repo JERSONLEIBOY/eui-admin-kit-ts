@@ -11,7 +11,8 @@ export const en: Locale = {
     footer: {
       website: 'Project Address',
       document: 'Project Document',
-      copyright: 'Copyright © 2026 EUI Admin Kit'
+      copyright: 'Copyright © 2026 EUI Admin Kit',
+      record: 'Record Number: 闽ICP备2026023953号-1'
     },
     logout: {
       title: 'Confirm',

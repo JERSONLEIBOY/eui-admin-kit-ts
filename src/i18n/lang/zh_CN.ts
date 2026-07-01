@@ -9,7 +9,8 @@ export const zh_CN = {
     footer: {
       website: '项目地址',
       document: '项目文档',
-      copyright: 'Copyright © 2026 EUI Admin Kit'
+      copyright: 'Copyright © 2026 EUI Admin Kit',
+      record: '备案号：闽ICP备2026023953号-1'
     },
     logout: {
       title: '系统提示',

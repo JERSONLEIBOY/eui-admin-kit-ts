@@ -24,7 +24,10 @@
         {{ t('layout.footer.document') }}
       </el-link>
     </el-space>
-    <div style="margin-top: 8px">
+    <div v-if="record" style="margin-top: 8px">
+      {{ t('layout.footer.record') }}
+    </div>
+    <div v-else style="margin-top: 8px">
       {{ t('layout.footer.copyright') }}
     </div>
   </eui-text>
@@ -34,4 +37,12 @@
   import { useI18n } from 'vue-i18n';
 
   const { t } = useI18n();
+
+  // 是否显示备案号
+  defineProps({
+    record: {
+      type: Boolean,
+      default: false
+    }
+  });
 </script>
