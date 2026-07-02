@@ -12,7 +12,8 @@ export const en: Locale = {
       website: 'Project Address',
       document: 'Project Document',
       copyright: 'Copyright © 2026 EUI Admin Kit',
-      record: 'Record Number: 闽ICP备2026023953号-1'
+      record: 'Record Number: 闽ICP备2026023953号-1',
+      recordLink: '闽公网安备35021102002672号'
     },
     logout: {
       title: 'Confirm',

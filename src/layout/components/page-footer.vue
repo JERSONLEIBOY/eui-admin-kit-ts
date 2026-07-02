@@ -25,7 +25,24 @@
       </el-link>
     </el-space>
     <div v-if="record" style="margin-top: 8px">
-      {{ t('layout.footer.record') }}
+      <el-space
+        :size="24"
+        style="--el-text-color-regular: var(--el-text-color-placeholder)"
+      >
+        <el-link
+          underline="never"
+          href="https://beian.miit.gov.cn/#/Integrated/index"
+          target="_blank"
+          >{{ t('layout.footer.record') }}</el-link
+        >
+        <el-link
+          underline="never"
+          href="https://beian.mps.gov.cn/#/query/webSearch?code=35021102002672"
+          target="_blank"
+        >
+          {{ t('layout.footer.recordLink') }}
+        </el-link>
+      </el-space>
     </div>
     <div v-else style="margin-top: 8px">
       {{ t('layout.footer.copyright') }}
