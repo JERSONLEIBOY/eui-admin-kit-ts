@@ -405,6 +405,9 @@
       padding: 0;
       display: block;
       background: #fff;
+      .login-header {
+        display: none;
+      }
 
       .login-card {
         width: 100%;

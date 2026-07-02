@@ -10,7 +10,7 @@ export const zh_CN = {
       website: '项目地址',
       document: '项目文档',
       copyright: 'Copyright © 2026 EUI Admin Kit',
-      record: '备案号：闽ICP备2026023953号-1',
+      record: '闽ICP备2026023953号-1',
       recordLink: '闽公网安备35021102002672号'
     },
     logout: {
